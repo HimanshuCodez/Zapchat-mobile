@@ -1,0 +1,21 @@
+{
+  "name": "zapchat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build" : "npm install --prefix  Server && npm install --prefix Client && npm run build --prefix Client",
+    "start" : "npm run start --prefix Server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HimanshuCodez/ZapChat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HimanshuCodez/ZapChat/issues"
+  },
+  "homepage": "https://github.com/HimanshuCodez/ZapChat#readme",
+  "description": ""
+}
