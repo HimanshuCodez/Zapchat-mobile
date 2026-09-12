@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "409ca937-b947-4777-bee9-9c1090ffc00d"
+      }
+    },
+    "android": {
+      "package": "com.himanshu55.zapchat"
+    }
+  }
+}
