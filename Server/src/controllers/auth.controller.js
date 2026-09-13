@@ -1,6 +1,6 @@
 import { generateToken } from "../utils/utils.js"
 import User from "../models/user.model.js";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import cloudinary from "../utils/cloudinary.js";
 
 export const signup = async (req, res) => {
@@ -21,10 +21,13 @@ export const signup = async (req, res) => {
 
     if (user) return res.status(400).json({ message: 'Email already exists' });
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const newUser = new User({
       fullname,
       email,
-      password,
+      password: hashedPassword,
       number,
     });
 
@@ -40,6 +43,7 @@ export const signup = async (req, res) => {
           email: newUser.email,
           profilePic: newUser.profilePic,
           number: newUser.number,
+          role: newUser.role,
         },
       });
     } else {
@@ -60,7 +64,8 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    if (password !== user.password) {
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
@@ -74,6 +79,7 @@ export const login = async (req, res) => {
         email: user.email,
         profilePic: user.profilePic,
         number: user.number,
+        role: user.role,
       },
     });
   } catch (error) {
@@ -115,6 +121,33 @@ export const updateProfile = async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   };
+
+export const resetPassword = async (req, res) => {
+  const { email, number, newPassword } = req.body;
+  try {
+    if (!email || !number || !newPassword) {
+      return res.status(400).json({ message: 'Email, phone number, and new password are required' });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    }
+
+    const user = await User.findOne({ email, number });
+    if (!user) {
+      return res.status(400).json({ message: 'No account matches that email and phone number' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.log('Error in resetPassword controller', error.message);
+    res.status(500).json({ message: 'Could not reset password' });
+  }
+};
 
 export const checkAuth = (req, res) => {
   try {

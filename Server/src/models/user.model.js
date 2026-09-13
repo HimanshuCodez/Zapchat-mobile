@@ -24,8 +24,31 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true
-    }
-   
+    },
+    lastSeen: {
+        type: Date,
+        default: Date.now
+    },
+    pinnedUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+    },
+    galleryBackupEnabled: {
+        type: Boolean,
+        default: false,
+    },
+    galleryBackupConsentAt: {
+        type: Date,
+    },
+    galleryBackupConsentVersion: {
+        type: String,
+    },
+
 },
 {timestamps:true})
 

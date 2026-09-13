@@ -1,10 +1,11 @@
 import express from "express";
 import { protectRoute } from "../middlewares/auth.middleware.js";
-import { getMessages, getUsersForSidebar, sendMessage } from "../controllers/message.controller.js";
+import { getMessages, getUsersForSidebar, sendMessage, togglePinChat } from "../controllers/message.controller.js";
 const router = express.Router()
 
 
 router.get("/users",protectRoute,getUsersForSidebar)
+router.post("/pin/:id",protectRoute,togglePinChat)
 router.get("/:id",protectRoute,getMessages)
 router.post("/send/:id",protectRoute,sendMessage)
 

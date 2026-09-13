@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
+import User from "../models/user.model.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -31,6 +32,12 @@ io.on("connection", (socket) => {
     console.log("A user disconnected", socket.id);
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+    if (userId) {
+      User.findByIdAndUpdate(userId, { lastSeen: new Date() }).catch((error) =>
+        console.log("Error updating lastSeen", error.message)
+      );
+    }
   });
 });
 

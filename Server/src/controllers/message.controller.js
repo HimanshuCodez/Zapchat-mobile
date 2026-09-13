@@ -6,11 +6,37 @@ import { getReceiverSocketId, io } from "../utils/socket.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
+    const pinnedIds = new Set((req.user.pinnedUsers || []).map((id) => id.toString()));
     const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
 
-    res.status(200).json(filteredUsers);
+    const usersWithPinFlag = filteredUsers.map((user) => ({
+      ...user.toObject(),
+      isPinned: pinnedIds.has(user._id.toString()),
+    }));
+
+    res.status(200).json(usersWithPinFlag);
   } catch (error) {
     console.error("Error in getUsersForSidebar: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const togglePinChat = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+
+    const index = user.pinnedUsers.findIndex((pinnedId) => pinnedId.toString() === id);
+    if (index === -1) {
+      user.pinnedUsers.push(id);
+    } else {
+      user.pinnedUsers.splice(index, 1);
+    }
+
+    await user.save();
+    res.status(200).json({ isPinned: index === -1 });
+  } catch (error) {
+    console.log("Error in togglePinChat controller: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };

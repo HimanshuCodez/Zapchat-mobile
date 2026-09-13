@@ -2,6 +2,10 @@ import express from 'express'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/message.routes.js'
+import statusRoutes from './routes/status.routes.js'
+import groupRoutes from './routes/group.routes.js'
+import galleryRoutes from './routes/gallery.routes.js'
+import adminRoutes from './routes/admin.routes.js'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import  cookieParser from 'cookie-parser'
@@ -28,6 +32,10 @@ app.use(cors({
 
 app.use("/api/auth",authRoutes)
 app.use("/api/messages",messageRoutes)
+app.use("/api/status",statusRoutes)
+app.use("/api/groups",groupRoutes)
+app.use("/api/gallery",galleryRoutes)
+app.use("/api/admin",adminRoutes)
 
 
 
