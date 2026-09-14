@@ -3,14 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 import { colors } from '../theme/colors';
 
-export default function MessageBubble({ text, isMine, accentColor = colors.primary, timestamp }) {
+export default function MessageBubble({ text, isMine, accentColor, timestamp }) {
   return (
     <Animated.View
-      entering={FadeInUp.duration(260).springify().damping(16)}
+      entering={FadeInUp.duration(220).springify().damping(18)}
       style={[
         styles.bubble,
         isMine
-          ? [styles.bubbleMine, { backgroundColor: accentColor }]
+          ? [styles.bubbleMine, accentColor ? { backgroundColor: accentColor } : null]
           : styles.bubbleOther,
       ]}
     >
@@ -24,42 +24,47 @@ export default function MessageBubble({ text, isMine, accentColor = colors.prima
 
 const styles = StyleSheet.create({
   bubble: {
-    maxWidth: '78%',
-    borderRadius: 18,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    marginBottom: 10,
+    maxWidth: '80%',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    marginBottom: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 1,
+    elevation: 1,
   },
   bubbleMine: {
     alignSelf: 'flex-end',
-    borderBottomRightRadius: 4,
+    backgroundColor: colors.bubbleMine,
+    borderTopRightRadius: 2,
   },
   bubbleOther: {
     alignSelf: 'flex-start',
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderBottomLeftRadius: 4,
+    borderTopLeftRadius: 2,
   },
   text: {
     fontSize: 15,
     lineHeight: 20,
   },
   textMine: {
-    color: colors.white,
+    color: colors.textPrimary,
   },
   textOther: {
     color: colors.textPrimary,
   },
   time: {
     fontSize: 10,
-    marginTop: 4,
+    marginTop: 3,
   },
   timeMine: {
-    color: 'rgba(255,255,255,0.75)',
+    color: colors.textSecondary,
     textAlign: 'right',
   },
   timeOther: {
     color: colors.textMuted,
+    textAlign: 'right',
   },
 });

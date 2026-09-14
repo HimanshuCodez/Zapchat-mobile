@@ -42,16 +42,16 @@ export default function ChatScreen({ navigation, currentUser, selectedUser, mess
     <SafeAreaView style={styles.root} edges={['top', 'bottom']}>
       <View style={styles.header}>
         <AnimatedPressable onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Text style={styles.backText}>Back</Text>
+          <Text style={styles.backText}>‹</Text>
         </AnimatedPressable>
         <View style={styles.headerCenter}>
-          <Avatar label={selectedUser?.fullname} size={34} />
+          <Avatar label={selectedUser?.fullname} size={36} />
           <View style={styles.headerTextWrap}>
             <Text style={styles.chatTitle} numberOfLines={1}>
               {selectedUser?.fullname}
             </Text>
             <Text style={styles.headerSubtitle} numberOfLines={1}>
-              {selectedUser?.isOnline ? 'Online' : formatLastSeen(selectedUser?.lastSeen)}
+              {selectedUser?.isOnline ? 'online' : formatLastSeen(selectedUser?.lastSeen)}
             </Text>
           </View>
         </View>
@@ -84,7 +84,7 @@ export default function ChatScreen({ navigation, currentUser, selectedUser, mess
             multiline
           />
           <AnimatedPressable style={styles.sendButton} onPress={handleSend}>
-            <Text style={styles.sendButtonText}>Send</Text>
+            <Text style={styles.sendButtonText}>➤</Text>
           </AnimatedPressable>
         </View>
       </KeyboardAvoidingView>
@@ -95,33 +95,31 @@ export default function ChatScreen({ navigation, currentUser, selectedUser, mess
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.chatBackground,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 14,
+    paddingHorizontal: 8,
     paddingVertical: 10,
-    backgroundColor: colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    backgroundColor: colors.primary,
   },
   backButton: {
-    paddingVertical: 6,
+    paddingVertical: 4,
     paddingHorizontal: 10,
-    borderRadius: 8,
-    backgroundColor: colors.background,
   },
   backText: {
-    color: colors.textPrimary,
+    color: colors.white,
     fontWeight: '700',
+    fontSize: 28,
+    lineHeight: 28,
   },
   headerCenter: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 8,
+    marginLeft: 2,
     marginRight: 8,
   },
   headerTextWrap: {
@@ -130,17 +128,17 @@ const styles = StyleSheet.create({
   },
   chatTitle: {
     fontSize: 16,
-    fontWeight: '800',
-    color: colors.textPrimary,
+    fontWeight: '700',
+    color: colors.white,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: colors.textSecondary,
+    color: 'rgba(255,255,255,0.8)',
     marginTop: 1,
   },
   messagesWrap: {
     flex: 1,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   messagesContent: {
     paddingVertical: 12,
@@ -156,31 +154,31 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    backgroundColor: colors.chatBackground,
   },
   chatInput: {
     flex: 1,
-    borderRadius: 16,
-    backgroundColor: colors.background,
-    paddingHorizontal: 14,
+    borderRadius: 22,
+    backgroundColor: colors.surface,
+    paddingHorizontal: 16,
     paddingVertical: 10,
     color: colors.textPrimary,
-    marginRight: 10,
+    marginRight: 8,
     maxHeight: 120,
   },
   sendButton: {
     backgroundColor: colors.primary,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    borderRadius: 22,
+    width: 44,
+    height: 44,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   sendButtonText: {
     color: colors.white,
     fontWeight: '700',
+    fontSize: 18,
   },
 });

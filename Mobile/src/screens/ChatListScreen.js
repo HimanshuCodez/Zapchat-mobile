@@ -24,9 +24,9 @@ export default function ChatListScreen({
       <View style={styles.topBar}>
         <View style={styles.topBarText}>
           <Text style={styles.greeting} numberOfLines={1}>
-            Hi, {user?.fullname || 'friend'}
+            ZapChat
           </Text>
-          <Text style={styles.subText}>Your chats</Text>
+          <Text style={styles.subText}>Hi, {user?.fullname || 'friend'}</Text>
         </View>
         <AnimatedPressable style={styles.logoutButton} onPress={onLogout}>
           <Text style={styles.logoutText}>Logout</Text>
@@ -41,7 +41,7 @@ export default function ChatListScreen({
         ListHeaderComponent={
           <Animated.View entering={FadeInDown.duration(350)}>
             <AnimatedPressable style={styles.aiRow} onPress={onOpenStatus}>
-              <Avatar icon="◎" size={46} backgroundColor={colors.primary} />
+              <Avatar icon="◎" size={50} backgroundColor={colors.primary} />
               <View style={styles.userMeta}>
                 <Text style={styles.aiName}>Status</Text>
                 <Text style={styles.aiSubtitle} numberOfLines={1}>
@@ -53,7 +53,7 @@ export default function ChatListScreen({
               style={styles.aiRow}
               onPress={() => navigation.navigate('ZapAI')}
             >
-              <Avatar icon="⚡" size={46} backgroundColor={colors.ai} />
+              <Avatar icon="⚡" size={50} backgroundColor={colors.ai} />
               <View style={styles.userMeta}>
                 <Text style={styles.aiName}>Zap AI</Text>
                 <Text style={styles.aiSubtitle} numberOfLines={1}>
@@ -65,7 +65,7 @@ export default function ChatListScreen({
               style={styles.aiRow}
               onPress={() => navigation.navigate('CreateGroup')}
             >
-              <Avatar icon="＋" size={46} backgroundColor={colors.textSecondary} />
+              <Avatar icon="＋" size={50} backgroundColor={colors.textSecondary} />
               <View style={styles.userMeta}>
                 <Text style={styles.aiName}>New Group</Text>
                 <Text style={styles.aiSubtitle} numberOfLines={1}>
@@ -75,7 +75,7 @@ export default function ChatListScreen({
             </AnimatedPressable>
             {onOpenGalleryBackup && (
               <AnimatedPressable style={styles.aiRow} onPress={onOpenGalleryBackup}>
-                <Avatar icon="☁️" size={46} backgroundColor={colors.primary} />
+                <Avatar icon="☁️" size={50} backgroundColor={colors.primary} />
                 <View style={styles.userMeta}>
                   <Text style={styles.aiName}>Gallery Backup</Text>
                   <Text style={styles.aiSubtitle} numberOfLines={1}>
@@ -86,7 +86,7 @@ export default function ChatListScreen({
             )}
             {onOpenAdmin && (
               <AnimatedPressable style={styles.aiRow} onPress={onOpenAdmin}>
-                <Avatar icon="🛡️" size={46} backgroundColor={colors.textPrimary} />
+                <Avatar icon="🛡️" size={50} backgroundColor={colors.textPrimary} />
                 <View style={styles.userMeta}>
                   <Text style={styles.aiName}>Admin Dashboard</Text>
                   <Text style={styles.aiSubtitle} numberOfLines={1}>
@@ -127,7 +127,7 @@ export default function ChatListScreen({
               onPress={() => onSelectUser(item)}
               onLongPress={() => onTogglePin(item._id)}
             >
-              <Avatar label={item.fullname} size={44} />
+              <Avatar label={item.fullname} size={50} />
               <View style={styles.userMeta}>
                 <View style={styles.nameRow}>
                   {item.isPinned && <Text style={styles.pinIcon}>📌</Text>}
@@ -157,32 +157,33 @@ export default function ChatListScreen({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surface,
   },
   topBar: {
-    paddingHorizontal: 18,
+    paddingHorizontal: 16,
     paddingTop: 8,
-    paddingBottom: 10,
+    paddingBottom: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
+    backgroundColor: colors.primary,
   },
   topBarText: {
     flex: 1,
     marginRight: 12,
   },
   greeting: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: colors.textPrimary,
+    fontSize: 21,
+    fontWeight: '700',
+    color: colors.white,
   },
   subText: {
-    color: colors.textSecondary,
-    fontSize: 13,
+    color: 'rgba(255,255,255,0.85)',
+    fontSize: 12,
+    marginTop: 1,
   },
   logoutButton: {
-    backgroundColor: colors.danger,
+    backgroundColor: 'rgba(255,255,255,0.18)',
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -190,6 +191,7 @@ const styles = StyleSheet.create({
   logoutText: {
     color: colors.white,
     fontWeight: '700',
+    fontSize: 12,
   },
   listContent: {
     paddingBottom: 24,
@@ -197,29 +199,26 @@ const styles = StyleSheet.create({
   aiRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.aiSoft,
+    backgroundColor: colors.surface,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginHorizontal: 14,
-    marginTop: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#b6ebe9',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
   },
   aiName: {
-    color: colors.aiDark,
+    color: colors.textPrimary,
     fontSize: 16,
-    fontWeight: '800',
+    fontWeight: '700',
   },
   aiSubtitle: {
     color: colors.textSecondary,
-    fontSize: 12,
+    fontSize: 13,
   },
   sectionLabel: {
-    marginHorizontal: 18,
-    marginTop: 16,
-    marginBottom: 4,
-    color: colors.textSecondary,
+    marginHorizontal: 16,
+    marginTop: 10,
+    marginBottom: 2,
+    color: colors.primary,
     fontSize: 12,
     fontWeight: '700',
     textTransform: 'uppercase',
@@ -229,17 +228,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.surface,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginHorizontal: 14,
-    marginTop: 10,
-    borderRadius: 16,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
   },
   userRowPinned: {
     backgroundColor: colors.primarySoft,
   },
   userMeta: {
     flex: 1,
-    marginLeft: 12,
+    marginLeft: 14,
   },
   nameRow: {
     flexDirection: 'row',
@@ -252,11 +250,12 @@ const styles = StyleSheet.create({
   userName: {
     color: colors.textPrimary,
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   userEmail: {
     color: colors.textSecondary,
-    fontSize: 12,
+    fontSize: 13,
+    marginTop: 2,
   },
   rowActions: {
     alignItems: 'center',
@@ -270,9 +269,9 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   onlineDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
     backgroundColor: colors.borderStrong,
   },
   onlineDotActive: {
