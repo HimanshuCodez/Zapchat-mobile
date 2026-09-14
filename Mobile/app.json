@@ -1,0 +1,65 @@
+{
+  "expo": {
+    "name": "ZapChat",
+    "slug": "zapchat-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zapchat.mobile"
+    },
+    "android": {
+      "package": "com.zapchat.mobile",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "apiBaseUrl": "https://zapchat-mobile.onrender.com/api",
+      "eas": {
+        "projectId": "13b4f26f-0bad-4ee2-8b56-88529606264e"
+      }
+    },
+    "owner": "himanshu55",
+    "plugins": [
+      "expo-audio",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow ZapChat to access your photos to add them to your status."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow ZapChat to access your photos so you can back them up to your account, only after you turn on Gallery Backup.",
+          "savePhotosPermission": "Allow ZapChat to save photos.",
+          "isAccessMediaLocationEnabled": false
+        }
+      ],
+      "expo-background-task",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "buildArchs": ["arm64-v8a"]
+          }
+        }
+      ]
+    ]
+  }
+}
